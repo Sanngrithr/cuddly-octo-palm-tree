@@ -27,7 +27,6 @@ namespace FuseeApp
         // Damping factor 
         private const float Damping = 0.8f;
 
-        private SceneContainer _rocketScene;
         private SceneRenderer _sceneRenderer;
 
         private bool _keys;
@@ -35,14 +34,7 @@ namespace FuseeApp
         // Init is called on startup. 
         public override void Init()
         {
-            // Set the clear color for the backbuffer to white (100% intensity in all color channels R, G, B, A).
-            RC.ClearColor = new float4(1, 1, 1, 1);
-
-            // Load the rocket model
-            _rocketScene = AssetStorage.Get<SceneContainer>("RocketModel.fus");
-
-            // Wrap a SceneRenderer around the model.
-            _sceneRenderer = new SceneRenderer(_rocketScene);
+            
         }
 
         // RenderAFrame is called once a frame
