@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Fusee.Base.Common;
 using Fusee.Base.Core;
 using Fusee.Engine.Common;
@@ -8,6 +10,8 @@ using Fusee.Serialization;
 using static Fusee.Engine.Core.Input;
 using static Fusee.Engine.Core.Time;
 using Fusee.Engine.Core.GUI;
+using Fusee.Xene;
+using static System.Math;
 
 namespace FuseeApp
 {
@@ -27,6 +31,7 @@ namespace FuseeApp
         // Damping factor 
         private const float Damping = 0.8f;
 
+        private SceneContainer  _scene;
         private SceneRenderer _sceneRenderer;
 
         private bool _keys;
@@ -34,7 +39,18 @@ namespace FuseeApp
         // Init is called on startup. 
         public override void Init()
         {
+            RC.ClearColor = new float4(0, 0, 0, 1);
+
+            var sphereTransform = new TransformComponent{
+                Scale = new float3(1,1,1),
+                Translation = new float3(0,0,0)
+                };
             
+            var sphereMaterial = new MaterialComponent{
+                Diffuse= new MatChannelContainer {Color = new float3(1,1,0.7f)},
+                Specular = new SpecularChannelContainer{Color = float3.One, Shininess = 4}
+            };
+                        
         }
 
         // RenderAFrame is called once a frame
