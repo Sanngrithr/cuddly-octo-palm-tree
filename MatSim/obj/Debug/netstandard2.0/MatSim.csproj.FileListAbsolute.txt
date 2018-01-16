@@ -7,3 +7,14 @@ e:\Desktop\HFU\Mathe\MatSim\obj\Debug\netstandard2.0\MatSim.AssemblyInfoInputs.c
 e:\Desktop\HFU\Mathe\MatSim\obj\Debug\netstandard2.0\MatSim.AssemblyInfo.cs
 e:\Desktop\HFU\Mathe\MatSim\obj\Debug\netstandard2.0\MatSim.dll
 e:\Desktop\HFU\Mathe\MatSim\obj\Debug\netstandard2.0\MatSim.pdb
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\Assets\RocketModel.fus
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\Assets\earth.fus
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\Assets\World.fus
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\MatSim.deps.json
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\MatSim.dll
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\bin\Debug\netstandard2.0\MatSim.pdb
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\obj\Debug\netstandard2.0\MatSim.csproj.CoreCompileInputs.cache
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\obj\Debug\netstandard2.0\MatSim.AssemblyInfoInputs.cache
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\obj\Debug\netstandard2.0\MatSim.AssemblyInfo.cs
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\obj\Debug\netstandard2.0\MatSim.dll
+e:\Desktop\HFU\cuddly-octo-palm-tree\trunk\MatSim\obj\Debug\netstandard2.0\MatSim.pdb

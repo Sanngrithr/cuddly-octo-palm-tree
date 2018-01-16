@@ -30,17 +30,12 @@ namespace FuseeApp
         // Damping factor 
         private const float Damping = 0.8f;
 
-        private SceneContainer  _scene;
+        private SceneContainer  _earthscene;
         private SceneRenderer _sceneRenderer;
         private bool _keys;
-
-        private TransformComponent _currentTransform;
-        private TransformComponent _endTransform;
-
-        private Vector3D _startPoint;
         public override void Init()
         {
-            RC.ClearColor = new float4(0, 0, 0, 1);
+            RC.ClearColor = new float4(0.2f, 0.2f, 0.2f, 1);
 
             var sphereTransform = new TransformComponent{
                 Scale = new float3(1,1,1),
@@ -52,18 +47,8 @@ namespace FuseeApp
                 Specular = new SpecularChannelContainer{Color = float3.One, Shininess = 4}
             };
 
-            var endpoint = new Vector3D(8,48);
-
-            var endpointTransform = new TransformComponent
-            {
-                Rotation = new float3(0, 0, 0),
-                Scale = new float3(0, 0, 0),
-                Translation = new float3(endpoint.x, endpoint.y, endpoint.z)
-            };
-
-            _scene = new SceneContainer{
-                
-            };
+            _earthscene = AssetStorage.Get<SceneContainer>("RocketModel.fus");
+            _sceneRenderer = new SceneRenderer(_earthscene);
         }
         // RenderAFrame is called once a frame
         public override void RenderAFrame()

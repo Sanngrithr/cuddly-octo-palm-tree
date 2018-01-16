@@ -183,11 +183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Desktop\\HFU\\Mathe\\MatSim\\MatSim.csproj",
+      "projectUniqueName": "e:\\Desktop\\HFU\\cuddly-octo-palm-tree\\trunk\\MatSim\\MatSim.csproj",
       "projectName": "MatSim",
-      "projectPath": "e:\\Desktop\\HFU\\Mathe\\MatSim\\MatSim.csproj",
+      "projectPath": "e:\\Desktop\\HFU\\cuddly-octo-palm-tree\\trunk\\MatSim\\MatSim.csproj",
       "packagesPath": "C:\\Users\\St Dr4gonflame\\.nuget\\packages\\",
-      "outputPath": "e:\\Desktop\\HFU\\Mathe\\MatSim\\obj\\",
+      "outputPath": "e:\\Desktop\\HFU\\cuddly-octo-palm-tree\\trunk\\MatSim\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
