@@ -15,7 +15,6 @@ using static System.Math;
 
 namespace FuseeApp
 {
-
     [FuseeApplication(Name = "MatSim", Description = "Yet another FUSEE App.")]
     public class MatSim : RenderCanvas
     {
@@ -33,10 +32,12 @@ namespace FuseeApp
 
         private SceneContainer  _scene;
         private SceneRenderer _sceneRenderer;
-
         private bool _keys;
 
-        // Init is called on startup. 
+        private TransformComponent _currentTransform;
+        private TransformComponent _endTransform;
+
+        private Vector3D _startPoint;
         public override void Init()
         {
             RC.ClearColor = new float4(0, 0, 0, 1);
@@ -45,14 +46,25 @@ namespace FuseeApp
                 Scale = new float3(1,1,1),
                 Translation = new float3(0,0,0)
                 };
-            
+
             var sphereMaterial = new MaterialComponent{
                 Diffuse= new MatChannelContainer {Color = new float3(1,1,0.7f)},
                 Specular = new SpecularChannelContainer{Color = float3.One, Shininess = 4}
             };
-                        
-        }
 
+            var endpoint = new Vector3D(8,48);
+
+            var endpointTransform = new TransformComponent
+            {
+                Rotation = new float3(0, 0, 0),
+                Scale = new float3(0, 0, 0),
+                Translation = new float3(endpoint.x, endpoint.y, endpoint.z)
+            };
+
+            _scene = new SceneContainer{
+                
+            };
+        }
         // RenderAFrame is called once a frame
         public override void RenderAFrame()
         {
@@ -64,7 +76,7 @@ namespace FuseeApp
             if (Keyboard.LeftRightAxis != 0 || Keyboard.UpDownAxis != 0)
             {
                 _keys = true;
-            }             
+            }
 
             if (Mouse.LeftButton)
             {
