@@ -21,7 +21,7 @@ public class Vector3D{
     }
 
     public float length(){
-        var x = new float3(this.x, this.x, this.z);
+        var x = new float3(this.x, this.y, this.z);
         return x.Length;
     }
 

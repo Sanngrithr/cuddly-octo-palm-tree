@@ -52,6 +52,8 @@ namespace FuseeApp
         private float theta_end;
         private Vector3D _startVector;
         private Vector3D _targetVector;
+        private float3 _uxv;
+        private float degtest;
 
 
 
@@ -91,12 +93,12 @@ namespace FuseeApp
 
 
 //Lösungsansatz Rotation
-            theta_start= 0;
+            theta_start = 0;
             phi_start = M.Pi/4;
 
-            theta_end = M.Pi;
-            phi_end = M.Pi/2;
-
+            theta_end = M.Pi/2;
+            phi_end = M.Pi;
+            
             phi_delta = phi_end - phi_start;
 
             _startVector = new Vector3D(theta_start, phi_start);
@@ -262,7 +264,11 @@ namespace FuseeApp
                 //Position des Ufo's wird aktualisiert
                 _ufoTransform.Translation = new float3(_startPoint.x, _startPoint.y, _startPoint.z);
                 
-                
+/*
+                _startVector.rotatate(_angle, _uxv);
+                _ufoTransform.Translation = new float3(_startVector.x, _startVector.y, _startVector.z);
+                _ufoTransform.Translation.Normalize();
+*/              
                 _angle = _angle + _staticAngle;
                 //Frame-Zähler wird erhöht
                 _counter++;
