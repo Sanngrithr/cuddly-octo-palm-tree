@@ -15,9 +15,9 @@ public class Vector3D{
 
     public Vector3D(float t, float p){
 
+        this.z = M.Cos(t) * M.Cos(p);
         this.x = M.Cos(t) * M.Sin(p);
-        this.y = M.Cos(t) * M.Sin(p);
-        this.z = M.Sin(t);
+        this.y = M.Sin(t);
     }
 
     public float length(){
@@ -39,23 +39,23 @@ public class Vector3D{
         return (this.x * v.x + this.y * v.y + this.z * this.z);
     }
 
-    public Vector3D crossproduct(Vector3D v){
+    public float3 crossproduct(float3 v, float3 u){
 
-        Vector3D uxv = new Vector3D(0,0,0);
+        float3 uxv = new float3(0,0,0);
 
-        uxv.x = (this.y * v.z) - (this.z * v.y);
-        uxv.y = (this.z * v.x) - (this.z * v.x);
-        uxv.z = (this.x * v.y) - (this.y * v.x);
+        uxv.x = (u.y * v.z) - (u.z * v.y);
+        uxv.y = (u.z * v.x) - (u.z * v.x);
+        uxv.z = (u.x * v.y) - (u.y * v.x);
 
         return uxv;
     }
 
-    public float angle(Vector3D v){
-    var x = System.Math.Acos(Convert.ToDouble(this.dotproduct(v)/(this.length() * v.length())));
-    return Convert.ToSingle(x);
+    public float angleRad(Vector3D v){
+    var x = (this.dotproduct(v)/(this.length() * v.length()));
+    return x;
     }
 
-    public void rotation(float g, Vector3D drehachse){
+    public void rotatate(float g, float3 drehachse){
 
         this.x = (
                   ((drehachse.x * drehachse.x) + M.Cos(g) * (1 - (drehachse.x * drehachse.x))) +

@@ -10,7 +10,7 @@
             "request": "launch", 
             "preLaunchTask": "build",
             "program": "${env:FuseeRoot}bin/Debug/Player/Desktop/Fusee.Engine.Player.Desktop.exe",
-            "args": ["${workspaceRoot}/bin/Debug/netstandard2.0/Tut10_Mesh.dll"],
+            "args": ["${workspaceRoot}/bin/Debug/netstandard2.0/MatSim.dll"],
             "cwd": "${env:FuseeRoot}bin/Debug/Player/Desktop",
             "stopAtEntry": false,
             "console": "externalTerminal"
@@ -25,7 +25,20 @@
             "cwd": ".",
             "stopAtEntry": false,
             "console": "externalTerminal",
-            "noDebug": false
+            "noDebug": true
         }
-     ]
+        // {
+        //     "name": ".NET Core Attach",
+        //     "type": "coreclr",
+        //     "request": "attach",
+        //     "processId": "${command:pickProcess}"
+        // }
+        
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
 }
