@@ -47,14 +47,23 @@ namespace FuseeApp
 
         private float phi_start;
         private float phi_end;
-        private float phi_delta;
         private float theta_start;
         private float theta_end;
+        private float phi_uxv;
+        private float theta_uxv;
         private Vector3D _startVector;
         private Vector3D _targetVector;
+        private Vector3D _normale;
         private float3 _uxv;
+        private Vector3D _cpHelper;
+        private Vector3D y_axis;
+        private Vector3D z_axis;
         private float degtest;
-
+        private float degtest1;
+        private float degtest2;
+        private float degtest3;
+        private float degtest4;
+        private float _degtest5;
 
 
         // Init is called on startup. 
@@ -91,15 +100,17 @@ namespace FuseeApp
             */
             // Wrap a SceneRenderer around the model.
 
-
 //Lösungsansatz Rotation
-            theta_start = 0;
-            phi_start = M.Pi/4;
+            theta_start = 0    *(M.Pi/180);
+            phi_start = 45   *(M.Pi/180);
 
-            theta_end = M.Pi/2;
-            phi_end = M.Pi;
+            theta_end = 1   *(M.Pi/180);
+            phi_end = 45    *(M.Pi/180);
             
-            phi_delta = phi_end - phi_start;
+            degtest = theta_start*(180/M.Pi);
+            degtest1 = phi_start*(180/M.Pi);
+            degtest2 = theta_end*(180/M.Pi);
+            degtest3 = phi_end*(180/M.Pi);
 
             _startVector = new Vector3D(theta_start, phi_start);
             _targetVector = new Vector3D(theta_end, phi_end);
@@ -111,7 +122,24 @@ namespace FuseeApp
             _maxframes = 300;
             _staticAngle = _startVector.angleRad(_targetVector)/_maxframes;
             _angle = 0;
+            
+            _degtest5 = _startVector.angleRad(_targetVector);
+            
+            _uxv = new float3(0,0,0);
+            _uxv.x = (_startPoint.y * _targetPoint.z) - (_startPoint.z * _targetPoint.y);
+            _uxv.y = (_startPoint.z * _targetPoint.x) - (_startPoint.x * _targetPoint.z);
+            _uxv.z = (_startPoint.x * _targetPoint.y) - (_startPoint.y * _targetPoint.x);
+            
+            _normale = new Vector3D(_uxv.x, _uxv.y, _uxv.z);
+            _cpHelper = new Vector3D(_uxv.x,0,_uxv.z);
+            y_axis = new Vector3D(0,1,0);
+            z_axis = new Vector3D(0,0,-1);
 
+            degtest4 = y_axis.angleRad(z_axis) * (180/M.Pi);
+
+            phi_uxv = _cpHelper.angleRad(z_axis);
+            theta_uxv = _normale.angleRad(y_axis);
+            
             _ufoTransform.Translation = _startPoint;
 
             _sceneRenderer = new SceneRenderer(_worldScene);
@@ -169,25 +197,8 @@ namespace FuseeApp
 
 
 //Lösungsansatz Translation
-           /* _ufoTransform.Translation = new float3(
-                (_ufoTransform.Translation.x +
-                    ((_uxv.x * _uxv.x) + M.Cos(_angle) * (1 - (_uxv.x * _uxv.x))) +
-                    (_uxv.x * _uxv.y * (1 - M.Cos(_angle)) + _uxv.z * M.Sin(_angle)) +
-                    (_uxv.x * _uxv.z * (1 - M.Cos(_angle)) - _uxv.y * M.Sin(_angle))
-                    ),
-                (_ufoTransform.Translation.y +
-                    (_uxv.x * _uxv.y * (1 - M.Cos(_angle)) - _uxv.z * M.Sin(_angle)) +
-                    ((_uxv.y * _uxv.y) + M.Cos(_angle) * (1 - (_uxv.y * _uxv.y))) +
-                    (_uxv.y * _uxv.z * (1 - M.Cos(_angle)) + _uxv.x * M.Sin(_angle))
-                    ),
-                 (_ufoTransform.Translation.z +
-                    (_uxv.x * _uxv.z * (1 - M.Cos(_angle)) + _uxv.y * M.Sin(_angle)) +
-                    (_uxv.y * _uxv.z * (1 - M.Cos(_angle)) - _uxv.x * M.Sin(_angle)) +
-                    ((_uxv.z * _uxv.z) + M.Cos(_angle) * (1 - (_uxv.z * _uxv.z)))
-                    )
-            );
-            */
-           /* xplaceholder = new float3(
+        /*if(_counter <= _maxframes){
+            xplaceholder = new float3(
                     (_uxv.x * _uxv.y * (1 - M.Cos(_angle)) - _uxv.z * M.Sin(_angle)),
                     ((_uxv.y * _uxv.y) + M.Cos(_angle) * (1 - (_uxv.y * _uxv.y))),
                     (_uxv.y * _uxv.z * (1 - M.Cos(_angle)) + _uxv.x * M.Sin(_angle))
@@ -214,65 +225,50 @@ namespace FuseeApp
             );
 
             _ufoTransform.Translation.Normalize();
-            
-            if(_counter <= _maxframes){
-                _angle = _angle + _staticAngle;
-                _counter++;
-            };
-            */
+            _angle = _angle + _staticAngle;
+            //Frame-Zähler wird erhöht
+            _counter++;
+        }*/
 
             if(_counter <= _maxframes)
             {
                 
                 //Rotiere den Start-Vektor auf die z-y-Ebene
-                _startPoint = new float3(_startPoint.x * M.Cos(phi_start) + _startPoint.z * (M.Sin(-(phi_start))),
+                _startPoint = new float3(_startPoint.x * M.Cos(phi_uxv) + _startPoint.z * (M.Sin(-(phi_uxv))),
                                          _startPoint.y,
-                                         _startPoint.x * M.Sin(phi_start) + _startPoint.z * M.Cos(phi_start)
+                                         _startPoint.x * M.Sin(phi_uxv) + _startPoint.z * M.Cos(phi_uxv)
                                         );
 
                 //Rotiere den Start-Vektor auf die z-x-Ebene
                 _startPoint = new float3(_startPoint.x,
-                                         _startPoint.y * M.Cos(theta_start) + _startPoint.z * M.Sin(theta_start),
-                                         _startPoint.y * M.Sin(-(theta_start)) + _startPoint.z * M.Cos(theta_start)
-                                        );
-                //Rotiere den Ziel Vektor auf die z-x-Ebene
-                _startPoint = new float3(_startPoint.x * M.Cos(phi_delta) + _startPoint.y * M.Sin(phi_delta),
-                                         _startPoint.x * M.Sin(-(phi_delta)) + _startPoint.y * M.Cos(phi_delta),
-                                         _startPoint.z
-                                        );
-                //Rotiere den Start-Vektor um die y-Achse in Richtung des Zielvektors in Inkrementen
-                _startPoint = new float3(_startPoint.x * M.Cos(_angle) + _startPoint.z * (M.Sin(-(_angle))),
-                                         _startPoint.y,
-                                         _startPoint.x * M.Sin(_angle) + _startPoint.z * M.Cos(_angle)
-                                        );
-                //Rotationen auf die Drehachsen werden wieder aufgehoben
-                _startPoint = new float3(_startPoint.x * M.Cos(-(phi_delta)) + _startPoint.y * M.Sin(-(phi_delta)),
-                                         _startPoint.x * M.Sin(phi_delta) + _startPoint.y * M.Cos(-(phi_delta)),
-                                         _startPoint.z
-                                        );
-                
-                _startPoint = new float3(_startPoint.x,
-                                         _startPoint.y * M.Cos(-(theta_start)) + _startPoint.z * M.Sin(-(theta_start)),
-                                         _startPoint.y * M.Sin(theta_start) + _startPoint.z * M.Cos(-(theta_start))
+                                         _startPoint.y * M.Cos(theta_uxv) + _startPoint.z * M.Sin(theta_uxv),
+                                         _startPoint.y * M.Sin(-(theta_uxv)) + _startPoint.z * M.Cos(theta_uxv)
                                         );
 
-                _startPoint = new float3(_startPoint.x * M.Cos(-(phi_start)) + _startPoint.z * (M.Sin(phi_start)),
+                //Rotiere den Start-Vektor um die y-Achse in Richtung des Zielvektors in Inkrementen
+                _startPoint = new float3(_startPoint.x * M.Cos(_staticAngle) + _startPoint.z * (M.Sin(-(_staticAngle))),
                                          _startPoint.y,
-                                         _startPoint.x * M.Sin(-(phi_start)) + _startPoint.z * M.Cos(-(phi_start))
+                                         _startPoint.x * M.Sin(_staticAngle) + _startPoint.z * M.Cos(_staticAngle)
+                                        );
+
+                _startPoint = new float3(_startPoint.x,
+                                         _startPoint.y * M.Cos(-(theta_uxv)) + _startPoint.z * M.Sin(-(theta_uxv)),
+                                         _startPoint.y * M.Sin(theta_uxv) + _startPoint.z * M.Cos(-(theta_uxv))
+                                        );
+
+                _startPoint = new float3(_startPoint.x * M.Cos(-(phi_uxv)) + _startPoint.z * (M.Sin(phi_uxv)),
+                                         _startPoint.y,
+                                         _startPoint.x * M.Sin(-(phi_uxv)) + _startPoint.z * M.Cos(-(phi_uxv))
                                         );
 
                 //Position des Ufo's wird aktualisiert
                 _ufoTransform.Translation = new float3(_startPoint.x, _startPoint.y, _startPoint.z);
                 
-/*
-                _startVector.rotatate(_angle, _uxv);
-                _ufoTransform.Translation = new float3(_startVector.x, _startVector.y, _startVector.z);
-                _ufoTransform.Translation.Normalize();
-*/              
+             
                 _angle = _angle + _staticAngle;
                 //Frame-Zähler wird erhöht
                 _counter++;
-            };
+        };
 
             // Render the scene loaded in Init()
             _sceneRenderer.Render(RC);

@@ -15,7 +15,7 @@ public class Vector3D{
 
     public Vector3D(float t, float p){
 
-        this.z = M.Cos(t) * M.Cos(p);
+        this.z = -1*(M.Cos(t) * M.Cos(p));
         this.x = M.Cos(t) * M.Sin(p);
         this.y = M.Sin(t);
     }
@@ -36,7 +36,7 @@ public class Vector3D{
 
     public float dotproduct(Vector3D v){
 
-        return (this.x * v.x + this.y * v.y + this.z * this.z);
+        return (this.x * v.x + this.y * v.y + this.z * v.z);
     }
 
     public float3 crossproduct(float3 v, float3 u){
@@ -51,7 +51,7 @@ public class Vector3D{
     }
 
     public float angleRad(Vector3D v){
-    var x = (this.dotproduct(v)/(this.length() * v.length()));
+    var x = (float)Math.Acos(((double)this.dotproduct(v)/((double)this.length() * (double)v.length())));
     return x;
     }
 
